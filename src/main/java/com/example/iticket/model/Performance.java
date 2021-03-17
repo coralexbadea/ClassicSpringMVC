@@ -1,5 +1,8 @@
 package com.example.iticket.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,6 +29,10 @@ public class Performance {
 
     @NotNull(message = "*Please provide the maximum number of tickets")
     private int pmaxTickets;
+
+
+    @OneToOne( cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "performance")
+    private Ticket ticket;
 
     public Long getPid() {
         return pid;
@@ -73,5 +80,13 @@ public class Performance {
 
     public void setPmaxTickets(int pmaxTickets) {
         this.pmaxTickets = pmaxTickets;
+    }
+
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
     }
 }

@@ -1,6 +1,8 @@
 package com.example.iticket.service;
 
 import com.example.iticket.model.Performance;
+import com.example.iticket.model.Ticket;
+import com.example.iticket.model.TicketReservation;
 import com.example.iticket.model.User;
 import com.example.iticket.repository.PerformanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ public class PerformanceService {
     @Autowired
     private PerformanceRepository performanceRepository;
 
+    @Autowired
+    private TicketService ticketService;
     private Performance getById(Long id){
         return performanceRepository.findById(id).get();
     }
@@ -22,10 +26,21 @@ public class PerformanceService {
     }
 
     public void save(Performance perf){
+        Ticket perfTicket = new Ticket();
+
+        perfTicket.setPerformance(perf);
+
+        perfTicket.setSeastLeft(perf.getPmaxTickets());
+
+        perf.setTicket(perfTicket);
         performanceRepository.save(perf);
+
+
+
     }
 
     public void delete(Long id){
+
         performanceRepository.deleteById(id);
     }
 

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>View Reservationsn</title>
+</head>
+<body>
+<div align="center">
+
+
+    <div sec:authorize="isAuthenticated()">
+        Welcome <b><span sec:authentication="name">Username</span></b>
+    </div>
+
+
+
+
+    <table border="1" cellpadding="10">
+        <h2>Performance Reservations</h2>
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Performer</th>
+            <th>Number of seats</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="reservation : ${listReservations}">
+            <td th:text="${reservation.ptitle}">Title</td>
+            <td th:text="${reservation.pname}">Performer</td>
+            <td th:text="${reservation.seats}">No seats</td>
+
+
+            <td sec:authorize="hasAnyAuthority('ADMIN', 'CASHIER')">
+                <a th:href="@{'/cancelReservation/'+${reservation.ticketReservationId}}">Cancel</a>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

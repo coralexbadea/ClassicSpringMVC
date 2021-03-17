@@ -21,6 +21,14 @@
             <a href="/newPerformance">Add Performance</a>
         </div>
 
+        <div sec:authorize="hasAnyAuthority('ADMIN','CASHIER')">
+            <a href="/download/reservations">Download all reservations</a>
+        </div>
+
+        <div sec:authorize="hasAnyAuthority('ADMIN','CASHIER')">
+            <a href="/viewReservations">View your reservations</a>
+        </div>
+
         <table border="1" cellpadding="10">
             <h2>Performance List</h2>
             <thead>

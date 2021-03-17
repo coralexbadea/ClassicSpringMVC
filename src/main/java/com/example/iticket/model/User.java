@@ -26,8 +26,20 @@ public class User {
     @JoinTable(name="users_roles", joinColumns = @JoinColumn (name="userId"),inverseJoinColumns = @JoinColumn(name="roleId"))
     private Set<Role> roles = new HashSet<>();
 
+    @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER,  mappedBy = "user")
+    private Set<TicketReservation> reservations = new HashSet<>();
+
+
     public Long getUserId() {
         return userId;
+    }
+
+    public Set<TicketReservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(Set<TicketReservation> reservations) {
+        this.reservations = reservations;
     }
 
     public void setUserId(Long userId) {

@@ -53,6 +53,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/editPerformance/*").hasAnyAuthority("ADMIN", "CASHIER")
                 .antMatchers("/save").hasAnyAuthority("ADMIN", "CASHIER")
                 .antMatchers("/deletePerformance/**").hasAnyAuthority("ADMIN", "CASHIER")
+                .antMatchers("/viewReservations").hasAnyAuthority("ADMIN", "CASHIER")
+                .antMatchers("/downloadReservations").hasAnyAuthority("ADMIN", "CASHIER")
                 .anyRequest()
                 .authenticated()
                 .and().csrf().disable()

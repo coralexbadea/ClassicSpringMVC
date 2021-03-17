@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Buy Ticket</title>
+</head>
+<body>
+<div align="center">
+    <h1><span th:utext="'Buy ticket '+${ticket.performance.ptitle}"></span></h1>
+
+    <br />
+    <h2><span th:utext="'No tickets left: '+${ticket.seastLeft}"></span></h2>
+
+    <form th:action="@{'/buyTicket/' + ${ticket.performance.pid}}"
+          th:object="${ticketReservation}" method="post"
+          role="form">
+
+
+        <tr>
+            <td>How many tickets do you buy?</td>
+            <td> <input type="text" th:field="*{seats}" placeholder="Number Seats"> <label
+                    th:if="${#fields.hasErrors('seats')}" th:errors="*{seats}"></label></td>
+        </tr>
+
+
+            <tr>
+                <td colspan="2"><button type="submit">Buy</button></td>
+            </tr>
+        </table>
+
+
+    </form>
+</div>
+</body>
+</html>
