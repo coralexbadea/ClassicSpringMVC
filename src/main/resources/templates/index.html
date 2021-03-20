@@ -17,17 +17,23 @@
             <input type="submit" value="Logout"/>
         </form>
 
-        <div sec:authorize="hasAnyAuthority('ADMIN','CASHIER')">
+        <div sec:authorize="hasAnyAuthority('ADMIN')">
             <a href="/newPerformance">Add Performance</a>
         </div>
 
-        <div sec:authorize="hasAnyAuthority('ADMIN','CASHIER')">
+        <div sec:authorize="hasAnyAuthority('ADMIN')">
             <a href="/download/reservations">Download all reservations</a>
+        </div>
+
+        <div sec:authorize="hasAnyAuthority('ADMIN')">
+            <a href="/users">View cashiers</a>
         </div>
 
         <div sec:authorize="hasAnyAuthority('ADMIN','CASHIER')">
             <a href="/viewReservations">View your reservations</a>
         </div>
+
+
 
         <table border="1" cellpadding="10">
             <h2>Performance List</h2>
@@ -51,11 +57,11 @@
                         <a th:href="@{'/buyTicket/'+${performance.pid}}">Buy Ticket</a>
                     </td>
 
-                    <td sec:authorize="hasAnyAuthority('ADMIN', 'CASHIER')">
+                    <td sec:authorize="hasAnyAuthority('ADMIN')">
                         <a th:href="@{'/editPerformance/'+${performance.pid}}">Edit</a>
                     </td>
 
-                    <td sec:authorize="hasAnyAuthority('ADMIN', 'CASHIER')">
+                    <td sec:authorize="hasAnyAuthority('ADMIN')">
                         <a th:href="@{'/deletePerformance/'+${performance.pid}}">Delete</a>
                     </td>
 

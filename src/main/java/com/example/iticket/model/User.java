@@ -13,20 +13,20 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
-    @Column(name = "userName")
-    @Size(min = 5, max=100, message = "*Your user name must have at least 5 characters")
-    @NotNull(message = "*Please provide a user name")
-    private String userName;
     @NotNull(message = "*Please provide a password")
     private String password;
     @Column(name = "userEnabled")
     private Boolean userEnabled;
+    @Column(name = "userName")
+    @Size(min = 5, max=100, message = "*Your user name must have at least 5 characters")
+    @NotNull(message = "*Please provide a user name")
+    private String userName;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name="users_roles", joinColumns = @JoinColumn (name="userId"),inverseJoinColumns = @JoinColumn(name="roleId"))
     private Set<Role> roles = new HashSet<>();
 
-    @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER,  mappedBy = "user")
+    @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "user")
     private Set<TicketReservation> reservations = new HashSet<>();
 
 

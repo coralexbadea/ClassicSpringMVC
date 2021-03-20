@@ -9,9 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import javax.transaction.Transactional;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -38,5 +37,23 @@ public class UserService {
         Set<TicketReservation> res = user.getReservations();
         res.add(ticketReservation);
         user.setReservations(res);
+    }
+
+    @Transactional
+    public List<User> listAllByRole(String role ) {
+
+        return userRepository.findAllByRoles_RoleName(role);
+    }
+
+    public User findById(Long id) {
+       return userRepository.findById(id).get();
+    }
+
+    public void saveUserWithoutEncription(User user) {
+        userRepository.save(user);
+    }
+
+    public void delete(Long id) {
+        userRepository.deleteById(id);
     }
 }

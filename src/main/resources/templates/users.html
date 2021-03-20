@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Users Info</title>
+</head>
+<body>
+<div align="center">
+
+
+    <div sec:authorize="isAuthenticated()">
+        Welcome <b><span sec:authentication="name">Username</span></b>
+    </div>
+
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout"/>
+    </form>
+
+    <div sec:authorize="hasAnyAuthority('ADMIN')">
+        <a href="/registration">Add Cashier</a>
+    </div>
+
+    <table border="1" cellpadding="10">
+        <h2>Cashiers List</h2>
+        <thead>
+        <tr>
+            <th>Username</th>
+            <th>Password</th>
+            <th sec:authorize="hasAnyAuthority('ADMIN')">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${listUsers}">
+            <td th:text="${user.userName}">Username</td>
+            <td th:text="${user.password}">Password</td>
+
+
+            <td sec:authorize="hasAnyAuthority('ADMIN')">
+                <a th:href="@{'/editCashier/'+${user.userId}}">Edit</a>
+            </td>
+
+            <td sec:authorize="hasAnyAuthority('ADMIN')">
+                <a th:href="@{'/deleteCashier/'+${user.userId}}">Delete</a>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

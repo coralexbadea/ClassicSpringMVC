@@ -14,7 +14,7 @@ public class Ticket {
     @JoinColumn(name="performance_id")
     private Performance performance;
 
-    @OneToOne( cascade = CascadeType.ALL, fetch = FetchType.LAZY,  mappedBy = "ticket")
+    @OneToOne( cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "ticket")
     private TicketReservation ticketReservation;
 
     private int seastLeft;
