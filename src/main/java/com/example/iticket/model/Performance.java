@@ -31,7 +31,7 @@ public class Performance {
     private int pmaxTickets;
 
 
-    @OneToOne( cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "performance")
+    @OneToOne( cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "performance")
     private Ticket ticket;
 
     public Long getPid() {

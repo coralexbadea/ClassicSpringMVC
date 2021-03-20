@@ -25,7 +25,7 @@ public class PerformanceService {
         return performanceRepository.findAll();
     }
 
-    public void save(Performance perf){
+    public Performance save(Performance perf){
         Ticket perfTicket = new Ticket();
 
         perfTicket.setPerformance(perf);
@@ -33,9 +33,13 @@ public class PerformanceService {
         perfTicket.setSeastLeft(perf.getPmaxTickets());
 
         perf.setTicket(perfTicket);
-        performanceRepository.save(perf);
+        return performanceRepository.save(perf);
 
+    }
 
+    public Performance saveEdit(Performance perf){
+
+        return performanceRepository.save(perf);
 
     }
 

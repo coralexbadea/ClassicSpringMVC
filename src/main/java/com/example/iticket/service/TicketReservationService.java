@@ -20,10 +20,7 @@ public class TicketReservationService {
     }
 
     public List<TicketReservation> listAllByUser(User user) {
-//        List<TicketReservation> list = new ArrayList<>();
-//
-//        ticketReservationRepository.findAllByUser(user).forEach(list::add);
-//        return list;
+
         return ticketReservationRepository.findAllByUser(user);
     }
 

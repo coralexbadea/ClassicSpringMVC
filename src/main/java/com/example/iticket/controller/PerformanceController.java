@@ -1,16 +1,11 @@
 package com.example.iticket.controller;
 
 import com.example.iticket.model.Performance;
-import com.example.iticket.model.User;
 import com.example.iticket.service.PerformanceService;
-import com.example.iticket.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -20,6 +15,57 @@ import java.util.List;
 public class PerformanceController {
     @Autowired
     PerformanceService performanceService;
+
+    @GetMapping(value = "/newPerformance")
+    public ModelAndView newPerformance() {
+        ModelAndView modelAndView = new ModelAndView();
+        Performance performance = new Performance();
+        modelAndView.addObject("performance", performance);
+        modelAndView.setViewName("newPerformance");
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/newPerformance")
+    public String createNewPerformance(@Valid Performance performance, BindingResult bindingResult) {
+        Performance performanceExists = performanceService.findByPtitle(performance.getPtitle());
+        if (performanceExists != null) {
+            bindingResult
+                    .rejectValue("ptitle", "error.performance",
+                            "There is already a performance registered with the title provided");
+        }
+
+        performanceService.save(performance);
+        return "redirect:/index";
+
+    }
+
+
+    @GetMapping("/editPerformance/{pid}")
+    public ModelAndView editPerformance(@PathVariable(name = "pid") Long pid) {
+        ModelAndView modelAndVie = new ModelAndView("editPerformance");
+        Performance performance = performanceService.findById(pid);
+        modelAndVie.addObject("performance", performance);
+        return modelAndVie;
+    }
+
+    @PostMapping(value = "/save")
+    public String savePerformance(@ModelAttribute("performance") Performance performance) {
+        performanceService.save(performance);
+        return "redirect:/index";
+    }
+
+    @PostMapping(value = "/saveEdit")
+    public String saveEditPerformance(@ModelAttribute("performance") Performance performance) {
+        performanceService.saveEdit(performance);
+        return "redirect:/index";
+    }
+
+    @RequestMapping("/deletePerformance/{sid}")
+    public String deletePerformance(@PathVariable (name="sid") Long sid) {
+        performanceService.delete(sid);
+        return "redirect:/index";
+    }
+
 
 
 

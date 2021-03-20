@@ -1,9 +1,6 @@
 package com.example.iticket.export;
 
 import com.example.iticket.model.TicketReservation;
-import com.example.iticket.service.TicketReservationService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;

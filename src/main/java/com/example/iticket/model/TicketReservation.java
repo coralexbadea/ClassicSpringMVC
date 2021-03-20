@@ -18,7 +18,7 @@ public class TicketReservation {
     private String pname;
 
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="ticket_id")
     private Ticket ticket;
 

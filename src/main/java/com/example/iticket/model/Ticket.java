@@ -1,6 +1,7 @@
 package com.example.iticket.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name="tickets")
@@ -14,8 +15,9 @@ public class Ticket {
     @JoinColumn(name="performance_id")
     private Performance performance;
 
-    @OneToOne( cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "ticket")
-    private TicketReservation ticketReservation;
+
+    @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "ticket")
+    private Set<TicketReservation> ticketReservations;
 
     private int seastLeft;
 
@@ -43,11 +45,11 @@ public class Ticket {
         this.seastLeft = seastLeft;
     }
 
-    public TicketReservation getTicketReservation() {
-        return ticketReservation;
+    public Set<TicketReservation> getTicketReservations() {
+        return ticketReservations;
     }
 
-    public void setTicketReservation(TicketReservation ticketReservation) {
-        this.ticketReservation = ticketReservation;
+    public void setTicketReservations(Set<TicketReservation> ticketReservations) {
+        this.ticketReservations = ticketReservations;
     }
 }
