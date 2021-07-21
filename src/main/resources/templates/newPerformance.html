@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Performance Form</title>
+</head>
+<body>
+
+<form th:action="@{/newPerformance}"
+      th:object="${performance}" method="post"
+      role="form">
+    <h2>Performance Form</h2>
+    <table border="0" cellpadding="10">
+        <tr>
+            <td><input type="text" th:field="*{ptitle}" placeholder="Title"> <label
+                    th:if="${#fields.hasErrors('ptitle')}" th:errors="*{ptitle}"></label></td>
+        </tr>
+        <tr>
+            <td> <input type="text" th:field="*{pname}" placeholder="Performer's Name"> <label
+                    th:if="${#fields.hasErrors('pname')}" th:errors="*{pname}"></label></td>
+        </tr>
+        <tr>
+            <td> <input type="text" th:field="*{pgenre}" placeholder="Genre"> <label
+                    th:if="${#fields.hasErrors('pgenre')}" th:errors="*{pgenre}"></label></td>
+        </tr>
+        <tr>
+            <td>  <input type="text" th:field="*{pdate}" placeholder="Date"> <label
+                    th:if="${#fields.hasErrors('pdate')}" th:errors="*{pdate}"></label></td>
+        </tr>
+        <tr>
+            <td> <input type="text" th:field="*{pmaxTickets}" placeholder="Maximum number of tickets"> <label
+                    th:if="${#fields.hasErrors('pmaxTickets')}" th:errors="*{pmaxTickets}"></label></td>
+        </tr>
+        <tr>
+            <td><button type="submit">Register Performance</button></td>
+        </tr>
+    </table>
+
+</form>
+
+
+
+
+</body>
+</html>
